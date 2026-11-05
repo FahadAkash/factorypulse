@@ -163,3 +163,4 @@ func (s *Service) ListActiveIncidents(ctx context.Context) ([]domain.Incident, e
 	}
 	return list, nil
 }
+

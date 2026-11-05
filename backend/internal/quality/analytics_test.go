@@ -32,3 +32,4 @@ func TestAnalyzeDefects_ParetoAndAlert(t *testing.T) {
 		t.Errorf("expected 60%%, got %f", res.ParetoBreakdown[0].Percentage)
 	}
 }
+

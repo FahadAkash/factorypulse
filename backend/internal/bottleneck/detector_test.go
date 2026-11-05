@@ -90,3 +90,4 @@ func TestPersistenceTracker_RequiresConsecutiveWindows(t *testing.T) {
 		t.Errorf("reset machine should not trigger on first window")
 	}
 }
+

@@ -89,3 +89,4 @@ func ComputeShiftForecast(
 
 	return res
 }
+

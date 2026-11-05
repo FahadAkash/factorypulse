@@ -17,7 +17,7 @@
 - [x] M12 Bottleneck detection (validated against ground truth) + shift forecast
 ## Phase 5 - Frontend
 - [x] M13 REST + WebSocket API
-- [ ] M14 React dashboard (overview, line, machine) + incident board
+- [x] M14 React dashboard (overview, line, machine) + incident board
 ## Phase 6 - Reliability & observability
 - [ ] M15 Failure-injection + replay reconciliation tests
 - [ ] M16 Prometheus/Grafana + OpenTelemetry end-to-end trace
