@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://nova-appliances.example/factorypulse/event-schema-v1.json",
+  "title": "FactoryPulse event envelope v1",
+  "type": "object",
+  "required": ["schema_version", "event_id", "event_type", "factory_id", "line_id", "machine_id", "run_id", "seq", "occurred_at", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "event_id":   { "type": "string", "format": "uuid", "description": "UUIDv5 of 'run_id:machine_id:seq' - deterministic so replays dedupe." },
+    "event_type": { "enum": ["machine.state_changed", "production.unit", "machine.heartbeat", "sensor.reading"] },
+    "factory_id": { "type": "string" },
+    "line_id":    { "type": "string" },
+    "machine_id": { "type": "string" },
+    "run_id":     { "type": "string", "description": "One simulator run / scenario execution." },
+    "seq":        { "type": "integer", "minimum": 1, "description": "Monotonic per machine within a run." },
+    "occurred_at":{ "type": "string", "format": "date-time", "description": "Simulation clock time, RFC3339 UTC." },
+    "trace_id":   { "type": "string", "description": "Optional W3C trace id for end-to-end tracing." },
+    "payload":    { "type": "object" }
+  },
+  "allOf": [
+    { "if": { "properties": { "event_type": { "const": "machine.state_changed" } } },
+      "then": { "properties": { "payload": { "type": "object", "required": ["state"], "properties": {
+        "state": { "enum": ["RUNNING", "STOPPED", "STARVED", "BLOCKED", "IDLE", "MAINTENANCE"] },
+        "reason_code": { "type": "string", "description": "Required when state=STOPPED, e.g. MOTOR_OVERLOAD, JAM, SENSOR_FAULT." },
+        "upstream_cause_machine_id": { "type": "string", "description": "For STARVED/BLOCKED: machine that caused it." } } } } } },
+    { "if": { "properties": { "event_type": { "const": "production.unit" } } },
+      "then": { "properties": { "payload": { "type": "object", "required": ["outcome", "cycle_time_ms"], "properties": {
+        "outcome": { "enum": ["good", "rejected"] },
+        "defect_code": { "type": "string" },
+        "cycle_time_ms": { "type": "integer", "minimum": 1 },
+        "product_type": { "type": "string" } } } } } },
+    { "if": { "properties": { "event_type": { "const": "sensor.reading" } } },
+      "then": { "properties": { "payload": { "type": "object", "required": ["sensor", "value", "unit"], "properties": {
+        "sensor": { "type": "string" }, "value": { "type": "number" }, "unit": { "type": "string" } } } } } }
+  ]
+}

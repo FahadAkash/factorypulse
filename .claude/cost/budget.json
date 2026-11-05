@@ -1,0 +1,6 @@
+{
+  "daily_usd": 10.0,
+  "session_usd": 3.0,
+  "warn_ratio": 0.8,
+  "hard_block": false
+}

@@ -1,0 +1,66 @@
+{
+  "model": "sonnet",
+  "env": {
+    "MAX_THINKING_TOKENS": "6000",
+    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
+    "BASH_MAX_OUTPUT_LENGTH": "12000",
+    "MAX_MCP_OUTPUT_TOKENS": "8000",
+    "DISABLE_TELEMETRY": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(go build:*)", "Bash(go vet:*)", "Bash(go test:*)", "Bash(go mod:*)", "Bash(gofmt:*)",
+      "Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)", "Bash(git add:*)", "Bash(git commit:*)",
+      "Bash(docker compose ps:*)", "Bash(docker compose up:*)", "Bash(docker compose down:*)",
+      "Bash(npm run typecheck:*)", "Bash(npm test:*)", "Bash(npm run build:*)",
+      "Bash(powershell -NoProfile -ExecutionPolicy Bypass -File scripts/*)",
+      "Bash(powershell -File scripts/*)"
+    ],
+    "deny": [
+      "Read(./.env)", "Read(./.env.*)", "Read(./**/secrets/**)",
+      "Read(./simulator/**/Library/**)", "Read(./simulator/**/Temp/**)", "Read(./simulator/**/Logs/**)",
+      "Read(./**/node_modules/**)", "Read(./**/bin/**)", "Read(./**/obj/**)",
+      "Bash(git push:*)", "Bash(rm -rf:*)", "Bash(git reset --hard:*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      { "matcher": "startup|resume|clear|compact",
+        "hooks": [ { "type": "command", "timeout": 15,
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.ps1\"" } ] }
+    ],
+    "UserPromptSubmit": [
+      { "hooks": [ { "type": "command", "timeout": 10,
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/budget-gate.ps1\"" } ] }
+    ],
+    "PreToolUse": [
+      { "matcher": "Read|Grep|Glob",
+        "hooks": [ { "type": "command", "timeout": 10,
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-paths.ps1\"" } ] },
+      { "matcher": "Bash",
+        "hooks": [ { "type": "command", "timeout": 10,
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-bash.ps1\"" } ] }
+    ],
+    "PostToolUse": [
+      { "matcher": "Write|Edit|MultiEdit",
+        "hooks": [ { "type": "command", "timeout": 20,
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/post-edit-go.ps1\"" } ] }
+    ],
+    "Stop": [
+      { "hooks": [ { "type": "command", "timeout": 30,
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/cost-tracker.ps1\"" } ] }
+    ],
+    "SubagentStop": [
+      { "hooks": [ { "type": "command", "timeout": 30,
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/cost-tracker.ps1\"" } ] }
+    ],
+    "PreCompact": [
+      { "hooks": [ { "type": "command", "timeout": 30,
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/cost-tracker.ps1\"" } ] }
+    ],
+    "SessionEnd": [
+      { "hooks": [ { "type": "command", "timeout": 30,
+          "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/cost-tracker.ps1\"" } ] }
+    ]
+  }
+}

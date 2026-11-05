@@ -1,0 +1,20 @@
+# Unity
+simulator/**/Library/
+simulator/**/Temp/
+simulator/**/Logs/
+simulator/**/Obj/
+simulator/**/Builds/
+simulator/**/UserSettings/
+simulator/**/*.csproj
+simulator/**/*.sln
+# Go / Node
+backend/bin/
+web/node_modules/
+web/dist/
+# Secrets / local
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+.claude/cost/tracker-errors.log
+pgdata/
