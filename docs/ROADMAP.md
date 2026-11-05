@@ -9,7 +9,7 @@
 ## Phase 3 - Go backend
 - [x] M6 Go skeleton, config, logging, graceful shutdown, migrations
 - [x] M7 MQTT consumer -> validate -> bounded worker pool
-- [ ] M8 Idempotent persistence (events table) + Redis machine state
+- [x] M8 Idempotent persistence (events table) + Redis machine state
 ## Phase 4 - Intelligence
 - [ ] M9 Minute-bucket production aggregation
 - [ ] M10 Downtime incident lifecycle (partial unique index)

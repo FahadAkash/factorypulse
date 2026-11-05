@@ -150,3 +150,4 @@ func TestWorkerPool_ExecutionAndDeadLetter(t *testing.T) {
 		t.Errorf("expected 1 dead letter, got %d", len(handler.deadLetters))
 	}
 }
+
