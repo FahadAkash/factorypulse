@@ -1,0 +1,60 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "Ingestion Throughput (events/s)",
+      "type": "stat",
+      "targets": [
+        { "expr": "sum(rate(ingest_received_total[1m]))", "legendFormat": "Throughput" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "title": "Ingest Latency P95 (ms)",
+      "type": "stat",
+      "targets": [
+        { "expr": "histogram_quantile(0.95, sum(rate(ingest_latency_seconds_bucket[1m])) by (le)) * 1000", "legendFormat": "P95 Latency" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "title": "Active Incidents",
+      "type": "stat",
+      "targets": [
+        { "expr": "incident_open", "legendFormat": "Active Incidents" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "title": "Connected WS Clients",
+      "type": "stat",
+      "targets": [
+        { "expr": "ws_clients", "legendFormat": "Clients" }
+      ]
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["factorypulse", "iot"],
+  "time": { "from": "now-15m", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "FactoryPulse Plant Intelligence",
+  "version": 1
+}

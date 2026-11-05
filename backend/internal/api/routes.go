@@ -9,6 +9,7 @@ import (
 	"github.com/FahadAkash/factorypulse/backend/internal/incident"
 	"github.com/FahadAkash/factorypulse/backend/internal/shift"
 	"github.com/FahadAkash/factorypulse/backend/internal/ws"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 type APIHandler struct {
@@ -24,6 +25,7 @@ func NewAPIHandler(hub *ws.Hub, incidents *incident.Service) *APIHandler {
 }
 
 func (h *APIHandler) RegisterRoutes(mux *http.ServeMux) {
+	mux.Handle("/metrics", promhttp.Handler())
 	mux.HandleFunc("/ws", h.handleWebSocket)
 	mux.HandleFunc("/api/v1/factory", h.handleFactoryOverview)
 	mux.HandleFunc("/api/v1/incidents", h.handleIncidents)

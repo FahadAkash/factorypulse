@@ -19,9 +19,9 @@
 - [x] M13 REST + WebSocket API
 - [x] M14 React dashboard (overview, line, machine) + incident board
 ## Phase 6 - Reliability & observability
-- [ ] M15 Failure-injection + replay reconciliation tests
-- [ ] M16 Prometheus/Grafana + OpenTelemetry end-to-end trace
-- [ ] M17 Load test (loadgen) -> real benchmark report
+- [x] M15 Failure-injection + replay reconciliation tests
+- [x] M16 Prometheus/Grafana + OpenTelemetry end-to-end trace
+- [x] M17 Load test (loadgen) -> real benchmark report
 ## Phase 7 - FDE validation
 - [ ] M18 Baseline vs intervention experiments (measured, not assumed)
 - [ ] M19 Business impact report + limitations + demo video script
