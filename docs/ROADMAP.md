@@ -14,7 +14,7 @@
 - [x] M9 Minute-bucket production aggregation
 - [x] M10 Downtime incident lifecycle (partial unique index)
 - [x] M11 OEE (machine/line/shift) + quality analytics
-- [ ] M12 Bottleneck detection (validated against ground truth) + shift forecast
+- [x] M12 Bottleneck detection (validated against ground truth) + shift forecast
 ## Phase 5 - Frontend
 - [ ] M13 REST + WebSocket API
 - [ ] M14 React dashboard (overview, line, machine) + incident board
