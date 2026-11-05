@@ -8,7 +8,7 @@
 - [x] M5 Unity: MQTT publisher (background thread, outbox) + control topic + ground_truth.json
 ## Phase 3 - Go backend
 - [x] M6 Go skeleton, config, logging, graceful shutdown, migrations
-- [ ] M7 MQTT consumer -> validate -> bounded worker pool
+- [x] M7 MQTT consumer -> validate -> bounded worker pool
 - [ ] M8 Idempotent persistence (events table) + Redis machine state
 ## Phase 4 - Intelligence
 - [ ] M9 Minute-bucket production aggregation
