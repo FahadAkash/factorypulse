@@ -1,0 +1,32 @@
+{
+    "sessions":  [
+                     {
+                         "session_id":  "d4c40dd0-c648-44e0-87a3-80f5fcf7a648",
+                         "started":  "2026-11-05 14:13:41",
+                         "updated":  "2026-11-05 14:13:41",
+                         "last_event":  "Stop",
+                         "input":  874254,
+                         "output":  116918,
+                         "cache_read":  19910841,
+                         "cache_write":  0,
+                         "cost_usd":  10.349784,
+                         "models":  [
+                                        {
+                                            "model":  "sonnet",
+                                            "input":  874254,
+                                            "output":  116918,
+                                            "cache_read":  19910841,
+                                            "cache_write":  0,
+                                            "cost_usd":  10.349784
+                                        }
+                                    ]
+                     }
+                 ],
+    "days":  [
+                 {
+                     "date":  "2026-11-05",
+                     "cost_usd":  10.349784,
+                     "tokens":  20902013
+                 }
+             ]
+}

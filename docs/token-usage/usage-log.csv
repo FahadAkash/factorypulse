@@ -1,0 +1,2 @@
+timestamp,session_id,event,delta_input,delta_output,delta_cache_read,delta_cache_write,delta_cost_usd,session_cost_usd,project_total_cost_usd
+2026-11-05 14:13:41,d4c40dd0-c648-44e0-87a3-80f5fcf7a648,Stop,874254,116918,19910841,0,10.349784,10.349784,10.349784

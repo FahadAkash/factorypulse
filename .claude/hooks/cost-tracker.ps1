@@ -35,17 +35,29 @@ try {
   $msgs = @{}; $n = 0
   foreach ($f in $files) {
     foreach ($line in (Read-LinesShared $f)) {
-      if ($line.IndexOf('"usage"') -lt 0) { continue }
+      if ($line.IndexOf('"usage"') -lt 0 -and $line.IndexOf('"input_tokens"') -lt 0) { continue }
       try { $o = $line | ConvertFrom-Json } catch { continue }
-      $m = $o.message
-      if (-not $m -or -not $m.usage) { continue }
-      $model = [string]$m.model
-      if (-not $model -or $model.StartsWith('<')) { continue }
-      $id = [string]$m.id
-      if (-not $id) { $n++; $id = "line-$n-$f" }
-      $u = $m.usage
-      $rec = @{ model = $model; i = [long]$u.input_tokens; o = [long]$u.output_tokens; cr = [long]$u.cache_read_input_tokens; cw = [long]$u.cache_creation_input_tokens }
-      if (-not $msgs.ContainsKey($id) -or $rec.o -ge $msgs[$id].o) { $msgs[$id] = $rec }
+      $model = "sonnet"
+      $id = $null
+      $rec = $null
+
+      if ($o.message -and $o.message.usage) {
+        $m = $o.message
+        $model = [string]$m.model
+        if (-not $model -or $model.StartsWith('<')) { continue }
+        $id = [string]$m.id
+        if (-not $id) { $n++; $id = "line-$n-$f" }
+        $u = $m.usage
+        $rec = @{ model = $model; i = [long]$u.input_tokens; o = [long]$u.output_tokens; cr = [long]$u.cache_read_input_tokens; cw = [long]$u.cache_creation_input_tokens }
+      } elseif ($o.input_tokens -or $o.output_tokens) {
+        $n++
+        $id = "step-$($o.step_index)-$n-$f"
+        $rec = @{ model = "sonnet"; i = [long]$o.input_tokens; o = [long]$o.output_tokens; cr = [long]$o.cache_read_tokens; cw = 0L }
+      }
+
+      if ($rec -and (-not $msgs.ContainsKey($id) -or $rec.o -ge $msgs[$id].o)) {
+        $msgs[$id] = $rec
+      }
     }
   }
 
