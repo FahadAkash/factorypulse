@@ -3,7 +3,7 @@
 - [x] M1 Business discovery doc (Nova Appliances assumptions: 3 lines, 12 machines, 8h shifts, 500 units/shift)
 - [x] M2 Workflow docs (current vs FactoryPulse incident flow) + PRD requirements (FR/NFR)
 ## Phase 2 - Unity simulator
-- [ ] M3 Unity: FactoryConfig ScriptableObject + 3 lines x 4 connected machines + buffers
+- [x] M3 Unity: FactoryConfig ScriptableObject + 3 lines x 4 connected machines + buffers
 - [ ] M4 Unity: machine state machine, starve/block propagation, seeded failure injector
 - [ ] M5 Unity: MQTT publisher (background thread, outbox) + control topic + ground_truth.json
 ## Phase 3 - Go backend
