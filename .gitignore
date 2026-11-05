@@ -5,12 +5,28 @@ simulator/**/Logs/
 simulator/**/Obj/
 simulator/**/Builds/
 simulator/**/UserSettings/
+simulator/**/MemoryCaptures/
 simulator/**/*.csproj
+simulator/**/*.unityproj
 simulator/**/*.sln
+simulator/**/*.userprefs
+
+# Simulation Run Artifacts
+runs/
+simulator/runs/
+
 # Go / Node
 backend/bin/
+*.exe
 web/node_modules/
 web/dist/
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
 # Secrets / local
 .env
 .env.*
