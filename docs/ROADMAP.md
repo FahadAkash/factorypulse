@@ -23,5 +23,5 @@
 - [x] M16 Prometheus/Grafana + OpenTelemetry end-to-end trace
 - [x] M17 Load test (loadgen) -> real benchmark report
 ## Phase 7 - FDE validation
-- [ ] M18 Baseline vs intervention experiments (measured, not assumed)
-- [ ] M19 Business impact report + limitations + demo video script
+- [x] M18 Baseline vs intervention experiments (measured, not assumed)
+- [x] M19 Business impact report + limitations + demo video script
