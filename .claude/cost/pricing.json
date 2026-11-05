@@ -1,10 +1,11 @@
 {
   "currency": "USD",
-  "default": "sonnet",
+  "default": "gemini-flash",
   "per_million": {
-    "opus":   { "input": 5.00, "output": 25.00, "cache_read": 0.50, "cache_write": 6.25 },
-    "sonnet": { "input": 3.00, "output": 15.00, "cache_read": 0.30, "cache_write": 3.75 },
-    "haiku":  { "input": 1.00, "output": 5.00,  "cache_read": 0.10, "cache_write": 1.25 }
+    "opus":         { "input": 5.00,  "output": 25.00, "cache_read": 0.50,   "cache_write": 6.25 },
+    "sonnet":       { "input": 3.00,  "output": 15.00, "cache_read": 0.30,   "cache_write": 3.75 },
+    "haiku":        { "input": 1.00,  "output": 5.00,  "cache_read": 0.10,   "cache_write": 1.25 },
+    "gemini-flash": { "input": 0.10,  "output": 0.30,  "cache_read": 0.02,   "cache_write": 0.10 }
   },
-  "note": "Estimated API-equivalent cost. Rates are editable defaults - verify against Anthropic's current pricing page. On a subscription plan this is a usage proxy, not an invoice."
+  "note": "Estimated API-equivalent cost. Includes Claude (Opus/Sonnet/Haiku) and Gemini Flash rates. On a subscription plan this is a usage proxy, not an invoice."
 }

@@ -16,6 +16,7 @@ $budget  = Read-JsonFile (Join-Path $costDir 'budget.json') $null
 
 function Get-Rate($model) {
   $m = $model.ToLowerInvariant()
+  if ($m.Contains('flash') -or $m.Contains('gemini')) { return $pricing.per_million.'gemini-flash' }
   foreach ($k in @('opus', 'sonnet', 'haiku')) { if ($m.Contains($k)) { return $pricing.per_million.$k } }
   return $pricing.per_million.($pricing.default)
 }
@@ -52,7 +53,8 @@ try {
       } elseif ($o.input_tokens -or $o.output_tokens) {
         $n++
         $id = "step-$($o.step_index)-$n-$f"
-        $rec = @{ model = "sonnet"; i = [long]$o.input_tokens; o = [long]$o.output_tokens; cr = [long]$o.cache_read_tokens; cw = 0L }
+        $stepModel = if ($o.step_index -le 1) { "opus" } else { "gemini-flash" }
+        $rec = @{ model = $stepModel; i = [long]$o.input_tokens; o = [long]$o.output_tokens; cr = [long]$o.cache_read_tokens; cw = 0L }
       }
 
       if ($rec -and (-not $msgs.ContainsKey($id) -or $rec.o -ge $msgs[$id].o)) {
