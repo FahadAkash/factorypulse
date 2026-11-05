@@ -79,3 +79,4 @@ A critical flaw in Nova's current paper logging is **secondary fault confusion**
 - **Consequence Tracking**: `STARVED` and `BLOCKED` states carry `upstream_cause_machine_id` pointing back to Machine 2.
 - **Reporting Separation**: OEE Availability treats starvation and blocking as propagation losses, while the incident board holds only the single actionable root-cause ticket for maintenance.
 - **Concurrency Guard**: Enforced by a partial unique index in PostgreSQL (`WHERE status != 'RESOLVED'`), ensuring exactly **one active incident per machine** regardless of duplicate MQTT messages.
+

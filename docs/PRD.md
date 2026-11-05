@@ -83,3 +83,4 @@ FactoryPulse is an industrial IoT and manufacturing operations intelligence plat
 | **FR-4.1 (Bottleneck)** | Run Unity scenario with `M-REF-02` artificially slowed | Engine accurately identifies `M-REF-02` as top bottleneck matching `ground_truth.json`. |
 | **NFR-1 (Latency)** | Measure timestamp delta between simulator `occurred_at` and UI render | $P95 < 500\text{ms}$ under normal operating load. |
 | **NFR-2 (Throughput)** | Execute loadgen tool at 1,000 msgs/sec for 5 minutes | Memory remains bounded; 0 dropped state/production events. |
+

@@ -38,3 +38,4 @@ In the Unity Project window under `Assets/Config/`:
 3. Add the `FactoryTopology` script.
 4. Drag your `FactoryConfig` asset into the `Config` inspector field.
 5. In Play mode, `FactoryTopology` auto-generates and wires the 3 lines, 12 machine nodes, and intermediate buffers.
+

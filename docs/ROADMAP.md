@@ -7,7 +7,7 @@
 - [x] M4 Unity: machine state machine, starve/block propagation, seeded failure injector
 - [x] M5 Unity: MQTT publisher (background thread, outbox) + control topic + ground_truth.json
 ## Phase 3 - Go backend
-- [ ] M6 Go skeleton, config, logging, graceful shutdown, migrations
+- [x] M6 Go skeleton, config, logging, graceful shutdown, migrations
 - [ ] M7 MQTT consumer -> validate -> bounded worker pool
 - [ ] M8 Idempotent persistence (events table) + Redis machine state
 ## Phase 4 - Intelligence

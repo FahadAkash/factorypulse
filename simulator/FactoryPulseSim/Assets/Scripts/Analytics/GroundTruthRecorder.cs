@@ -91,3 +91,4 @@ namespace FactoryPulseSim.Analytics
         }
     }
 }
+

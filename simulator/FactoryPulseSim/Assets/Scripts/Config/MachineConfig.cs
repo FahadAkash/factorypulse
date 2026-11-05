@@ -54,3 +54,4 @@ namespace FactoryPulseSim.Config
         public float MttrSeconds => mttrSeconds;
     }
 }
+
