@@ -5,7 +5,7 @@
 ## Phase 2 - Unity simulator
 - [x] M3 Unity: FactoryConfig ScriptableObject + 3 lines x 4 connected machines + buffers
 - [x] M4 Unity: machine state machine, starve/block propagation, seeded failure injector
-- [ ] M5 Unity: MQTT publisher (background thread, outbox) + control topic + ground_truth.json
+- [x] M5 Unity: MQTT publisher (background thread, outbox) + control topic + ground_truth.json
 ## Phase 3 - Go backend
 - [ ] M6 Go skeleton, config, logging, graceful shutdown, migrations
 - [ ] M7 MQTT consumer -> validate -> bounded worker pool
