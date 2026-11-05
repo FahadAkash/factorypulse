@@ -16,7 +16,7 @@
 - [x] M11 OEE (machine/line/shift) + quality analytics
 - [x] M12 Bottleneck detection (validated against ground truth) + shift forecast
 ## Phase 5 - Frontend
-- [ ] M13 REST + WebSocket API
+- [x] M13 REST + WebSocket API
 - [ ] M14 React dashboard (overview, line, machine) + incident board
 ## Phase 6 - Reliability & observability
 - [ ] M15 Failure-injection + replay reconciliation tests

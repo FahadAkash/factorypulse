@@ -8,22 +8,31 @@ import (
 	"log/slog"
 	"net/http"
 	"time"
+
+	"github.com/FahadAkash/factorypulse/backend/internal/incident"
+	"github.com/FahadAkash/factorypulse/backend/internal/ws"
 )
 
 type Server struct {
 	httpServer *http.Server
 	logger     *slog.Logger
+	apiHandler *APIHandler
 }
 
-func NewServer(port string, logger *slog.Logger) *Server {
+func NewServer(port string, hub *ws.Hub, incidents *incident.Service, logger *slog.Logger) *Server {
 	mux := http.NewServeMux()
 
 	s := &Server{
-		logger: logger,
+		logger:     logger,
+		apiHandler: NewAPIHandler(hub, incidents),
 	}
 
+	// Register core probes
 	mux.HandleFunc("/healthz", s.handleHealthz)
 	mux.HandleFunc("/readyz", s.handleReadyz)
+
+	// Register REST & WS routes
+	s.apiHandler.RegisterRoutes(mux)
 
 	s.httpServer = &http.Server{
 		Addr:         ":" + port,

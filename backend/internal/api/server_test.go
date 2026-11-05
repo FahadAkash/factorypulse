@@ -13,7 +13,7 @@ import (
 
 func TestHealthAndReadinessEndpoints(t *testing.T) {
 	logger := slog.New(slog.NewJSONHandler(io.Discard, nil))
-	srv := api.NewServer("0", logger)
+	srv := api.NewServer("0", nil, nil, logger)
 
 	// Test /healthz
 	req := httptest.NewRequest(http.MethodGet, "/healthz", nil)
@@ -49,6 +49,26 @@ func TestHealthAndReadinessEndpoints(t *testing.T) {
 	}
 	if readyBody["status"] != "READY" {
 		t.Errorf("expected status READY, got %s", readyBody["status"])
+	}
+
+	// Test /api/v1/factory
+	reqFactory := httptest.NewRequest(http.MethodGet, "/api/v1/factory", nil)
+	wFactory := httptest.NewRecorder()
+	srv.ServeHTTP(wFactory, reqFactory)
+
+	respFactory := wFactory.Result()
+	if respFactory.StatusCode != http.StatusOK {
+		t.Fatalf("expected /api/v1/factory 200 OK, got %d", respFactory.StatusCode)
+	}
+
+	// Test /api/v1/shift/forecast
+	reqShift := httptest.NewRequest(http.MethodGet, "/api/v1/shift/forecast", nil)
+	wShift := httptest.NewRecorder()
+	srv.ServeHTTP(wShift, reqShift)
+
+	respShift := wShift.Result()
+	if respShift.StatusCode != http.StatusOK {
+		t.Fatalf("expected /api/v1/shift/forecast 200 OK, got %d", respShift.StatusCode)
 	}
 }
 

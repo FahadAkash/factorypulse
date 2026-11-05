@@ -10,7 +10,9 @@ import (
 
 	"github.com/FahadAkash/factorypulse/backend/internal/api"
 	"github.com/FahadAkash/factorypulse/backend/internal/config"
+	"github.com/FahadAkash/factorypulse/backend/internal/incident"
 	"github.com/FahadAkash/factorypulse/backend/internal/telemetry"
+	"github.com/FahadAkash/factorypulse/backend/internal/ws"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -34,8 +36,18 @@ func main() {
 
 	g, gCtx := errgroup.WithContext(ctx)
 
-	// HTTP Server (Health & Monitoring API)
-	httpServer := api.NewServer(cfg.Port, logger)
+	// WebSocket Hub
+	hub := ws.NewHub(logger)
+	g.Go(func() error {
+		hub.Run(gCtx)
+		return nil
+	})
+
+	// Incident service
+	incidentSvc := incident.NewService(nil)
+
+	// HTTP Server (REST + WebSocket)
+	httpServer := api.NewServer(cfg.Port, hub, incidentSvc, logger)
 	g.Go(func() error {
 		return httpServer.Start(gCtx)
 	})
@@ -47,4 +59,3 @@ func main() {
 
 	logger.Info("FactoryPulse backend cleanly stopped")
 }
-
