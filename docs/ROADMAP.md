@@ -4,7 +4,7 @@
 - [x] M2 Workflow docs (current vs FactoryPulse incident flow) + PRD requirements (FR/NFR)
 ## Phase 2 - Unity simulator
 - [x] M3 Unity: FactoryConfig ScriptableObject + 3 lines x 4 connected machines + buffers
-- [ ] M4 Unity: machine state machine, starve/block propagation, seeded failure injector
+- [x] M4 Unity: machine state machine, starve/block propagation, seeded failure injector
 - [ ] M5 Unity: MQTT publisher (background thread, outbox) + control topic + ground_truth.json
 ## Phase 3 - Go backend
 - [ ] M6 Go skeleton, config, logging, graceful shutdown, migrations

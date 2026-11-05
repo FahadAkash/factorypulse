@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Concurrent;
 using FactoryPulseSim.Config;
 using UnityEngine;
 
@@ -6,6 +6,7 @@ namespace FactoryPulseSim.Core
 {
     /// <summary>
     /// Manages the physical topology for a single line: 4 MachineNodes connected via 3 ProductBuffers.
+    /// Handles simulation lifecycle binding across all 4 stations.
     /// </summary>
     public class LineTopology : MonoBehaviour
     {
@@ -41,11 +42,7 @@ namespace FactoryPulseSim.Core
                 buffers[i].Initialize($"B-{config.LineId}-{i + 1}", cap);
             }
 
-            // Wire up the 4 machines to the buffers:
-            // Station 1: upstream = null, downstream = Buffer 0
-            // Station 2: upstream = Buffer 0, downstream = Buffer 1
-            // Station 3: upstream = Buffer 1, downstream = Buffer 2
-            // Station 4: upstream = Buffer 2, downstream = null
+            // Wire up the 4 machines to the buffers
             for (int i = 0; i < 4; i++)
             {
                 if (machines[i] == null)
@@ -62,6 +59,22 @@ namespace FactoryPulseSim.Core
                     : null;
 
                 machines[i].BindConfiguration(factoryId, config.LineId, mCfg, upstream, downstream);
+            }
+        }
+
+        public void InitializeSimulation(
+            SimClock clock,
+            int masterSeed,
+            string runId,
+            ConcurrentQueue<SimEvent> outbox)
+        {
+            if (machines == null) return;
+            for (int i = 0; i < machines.Length; i++)
+            {
+                if (machines[i] != null)
+                {
+                    machines[i].InitializeSimulation(clock, masterSeed + i, runId, outbox);
+                }
             }
         }
     }
