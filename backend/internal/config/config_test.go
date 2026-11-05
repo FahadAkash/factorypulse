@@ -44,4 +44,3 @@ func TestConfig_EnvOverrides(t *testing.T) {
 		t.Errorf("expected 32 workers, got %d", cfg.WorkerPoolCap)
 	}
 }
-

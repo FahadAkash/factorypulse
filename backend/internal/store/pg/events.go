@@ -75,4 +75,3 @@ func (s *EventStore) SaveDeadLetter(ctx context.Context, raw []byte, reason stri
 	_, err := s.pool.Exec(ctx, query, raw, reason, time.Now().UTC())
 	return err
 }
-

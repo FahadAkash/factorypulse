@@ -71,4 +71,3 @@ func TestHealthAndReadinessEndpoints(t *testing.T) {
 		t.Fatalf("expected /api/v1/shift/forecast 200 OK, got %d", respShift.StatusCode)
 	}
 }
-

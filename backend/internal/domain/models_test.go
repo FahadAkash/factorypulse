@@ -44,4 +44,3 @@ func TestEventEnvelope_Validation(t *testing.T) {
 		t.Errorf("expected error for seq <= 0, got nil")
 	}
 }
-

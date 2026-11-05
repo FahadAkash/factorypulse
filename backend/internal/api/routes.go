@@ -49,13 +49,13 @@ func (h *APIHandler) handleFactoryOverview(w http.ResponseWriter, r *http.Reques
 
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(map[string]any{
-		"factory_id": "factory-01",
-		"name":       "Nova Central Plant",
-		"lines_count": 3,
+		"factory_id":     "factory-01",
+		"name":           "Nova Central Plant",
+		"lines_count":    3,
 		"machines_count": 12,
-		"active_shift": "Shift 1 (06:00 - 14:00)",
-		"shift_target": 500,
-		"server_time": time.Now().UTC(),
+		"active_shift":   "Shift 1 (06:00 - 14:00)",
+		"shift_target":   500,
+		"server_time":    time.Now().UTC(),
 	})
 }
 
@@ -152,4 +152,3 @@ func (h *APIHandler) handleShiftForecast(w http.ResponseWriter, r *http.Request)
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(forecast)
 }
-

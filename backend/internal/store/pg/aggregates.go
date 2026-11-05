@@ -108,4 +108,3 @@ func (s *AggregateStore) GetProductionBuckets(
 	}
 	return buckets, nil
 }
-

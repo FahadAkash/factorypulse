@@ -94,4 +94,3 @@ func (e *EventEnvelope) Validate() error {
 	}
 	return nil
 }
-

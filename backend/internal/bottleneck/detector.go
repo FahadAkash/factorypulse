@@ -5,14 +5,14 @@ import (
 )
 
 type StationWindowMetrics struct {
-	MachineID        string  `json:"machine_id"`
-	StationOrder     int     `json:"station_order"`
-	RunTimeSeconds   float64 `json:"run_time_seconds"`
-	WindowSeconds    float64 `json:"window_seconds"`
-	StarvedRatio     float64 `json:"starved_ratio"` // 0.0 to 1.0
-	BlockedRatio     float64 `json:"blocked_ratio"` // 0.0 to 1.0
-	UnitsProduced    int     `json:"units_produced"`
-	DesignedCapacity int     `json:"designed_capacity"`
+	MachineID         string  `json:"machine_id"`
+	StationOrder      int     `json:"station_order"`
+	RunTimeSeconds    float64 `json:"run_time_seconds"`
+	WindowSeconds     float64 `json:"window_seconds"`
+	StarvedRatio      float64 `json:"starved_ratio"` // 0.0 to 1.0
+	BlockedRatio      float64 `json:"blocked_ratio"` // 0.0 to 1.0
+	UnitsProduced     int     `json:"units_produced"`
+	DesignedCapacity  int     `json:"designed_capacity"`
 	HasActiveDowntime bool    `json:"has_active_downtime"`
 }
 

@@ -95,4 +95,3 @@ func (s *StateStore) SetHeartbeat(ctx context.Context, machineID string, ttl tim
 	key := fmt.Sprintf("fp:m:%s:hb", machineID)
 	return s.client.Set(ctx, key, "1", ttl).Err()
 }
-

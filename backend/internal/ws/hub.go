@@ -194,4 +194,3 @@ func (c *Client) writePump() {
 		}
 	}
 }
-

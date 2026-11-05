@@ -67,4 +67,3 @@ func TestComputeMachineOEE_DivisionByZeroGuarded(t *testing.T) {
 		t.Errorf("expected OEE nil when total=0, got %v", *metrics.OEE)
 	}
 }
-

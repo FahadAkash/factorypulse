@@ -57,4 +57,3 @@ func TestComputeShiftForecast_Behind(t *testing.T) {
 		t.Errorf("expected projected total 350, got %d", res.ProjectedTotal)
 	}
 }
-

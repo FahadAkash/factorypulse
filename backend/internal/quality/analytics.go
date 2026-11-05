@@ -62,4 +62,3 @@ func AnalyzeDefects(
 	res.ParetoBreakdown = pareto
 	return res
 }
-

@@ -8,9 +8,9 @@ import (
 
 func TestAnalyzeDefects_ParetoAndAlert(t *testing.T) {
 	counts := map[string]int{
-		"SURFACE_SCRATCH":      15,
+		"SURFACE_SCRATCH":       15,
 		"DIMENSION_OUT_OF_SPEC": 30,
-		"FOAM_VOIDS":           5,
+		"FOAM_VOIDS":            5,
 	}
 
 	// 50 rejected, 950 good => total 1000 => defect rate = 50/1000 = 0.05 (5%)
@@ -32,4 +32,3 @@ func TestAnalyzeDefects_ParetoAndAlert(t *testing.T) {
 		t.Errorf("expected 60%%, got %f", res.ParetoBreakdown[0].Percentage)
 	}
 }
-
