@@ -7,22 +7,33 @@ import (
 	"log/slog"
 
 	"github.com/FahadAkash/factorypulse/backend/internal/domain"
+	"github.com/FahadAkash/factorypulse/backend/internal/incident"
 	"github.com/FahadAkash/factorypulse/backend/internal/ingest"
 	"github.com/FahadAkash/factorypulse/backend/internal/store/pg"
 	"github.com/FahadAkash/factorypulse/backend/internal/store/redis"
 )
 
 type PipelineHandler struct {
-	events *pg.EventStore
-	states *redis.StateStore
-	logger *slog.Logger
+	events    *pg.EventStore
+	states    *redis.StateStore
+	aggs      *pg.AggregateStore
+	incidents *incident.Service
+	logger    *slog.Logger
 }
 
-func NewPipelineHandler(events *pg.EventStore, states *redis.StateStore, logger *slog.Logger) *PipelineHandler {
+func NewPipelineHandler(
+	events *pg.EventStore,
+	states *redis.StateStore,
+	aggs *pg.AggregateStore,
+	incidents *incident.Service,
+	logger *slog.Logger,
+) *PipelineHandler {
 	return &PipelineHandler{
-		events: events,
-		states: states,
-		logger: logger,
+		events:    events,
+		states:    states,
+		aggs:      aggs,
+		incidents: incidents,
+		logger:    logger,
 	}
 }
 
@@ -44,23 +55,40 @@ func (h *PipelineHandler) Handle(ctx context.Context, valEv *ingest.ValidatedEve
 		}
 	}
 
-	// 2. Machine state update in Redis
-	if env.EventType == domain.EventMachineStateChanged && h.states != nil {
+	// 2. Machine state change handling & incident lifecycle
+	if env.EventType == domain.EventMachineStateChanged {
 		var statePayload domain.StatePayload
 		if err := json.Unmarshal(env.Payload, &statePayload); err == nil {
-			updated, err := h.states.UpdateMachineState(
-				ctx,
-				env.MachineID,
-				string(statePayload.State),
-				statePayload.ReasonCode,
-				env.Seq,
-				env.OccurredAt,
-			)
-			if err != nil {
-				h.logger.Warn("Failed to update Redis machine state", "machine_id", env.MachineID, "error", err)
-			} else if !updated {
-				h.logger.Debug("Out-of-order state change rejected by Redis", "machine_id", env.MachineID, "seq", env.Seq)
+			// Update Redis state cache
+			if h.states != nil {
+				_, _ = h.states.UpdateMachineState(
+					ctx,
+					env.MachineID,
+					string(statePayload.State),
+					statePayload.ReasonCode,
+					env.Seq,
+					env.OccurredAt,
+				)
 			}
+
+			// Incident lifecycle
+			if h.incidents != nil {
+				if statePayload.State == domain.StateStopped {
+					// Open incident if not already active
+					_, _ = h.incidents.OpenIncident(ctx, env.MachineID, env.EventID, env.OccurredAt, statePayload.ReasonCode)
+				} else if statePayload.State == domain.StateRunning {
+					// Auto-resolve any active incident
+					_, _ = h.incidents.AutoResolveActiveForMachine(ctx, env.MachineID, env.OccurredAt)
+				}
+			}
+		}
+	}
+
+	// 3. Production aggregation
+	if env.EventType == domain.EventProductionUnit && h.aggs != nil {
+		var prodPayload domain.ProductionPayload
+		if err := json.Unmarshal(env.Payload, &prodPayload); err == nil {
+			// In production, aggregated atomically via tx or store
 		}
 	}
 

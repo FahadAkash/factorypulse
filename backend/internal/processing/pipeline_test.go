@@ -15,7 +15,7 @@ import (
 
 func TestPipelineHandler_NilStoresSafe(t *testing.T) {
 	logger := slog.New(slog.NewJSONHandler(io.Discard, nil))
-	handler := processing.NewPipelineHandler(nil, nil, logger)
+	handler := processing.NewPipelineHandler(nil, nil, nil, nil, logger)
 
 	valEv := &ingest.ValidatedEvent{
 		Envelope: domain.EventEnvelope{

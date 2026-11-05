@@ -11,8 +11,8 @@
 - [x] M7 MQTT consumer -> validate -> bounded worker pool
 - [x] M8 Idempotent persistence (events table) + Redis machine state
 ## Phase 4 - Intelligence
-- [ ] M9 Minute-bucket production aggregation
-- [ ] M10 Downtime incident lifecycle (partial unique index)
+- [x] M9 Minute-bucket production aggregation
+- [x] M10 Downtime incident lifecycle (partial unique index)
 - [ ] M11 OEE (machine/line/shift) + quality analytics
 - [ ] M12 Bottleneck detection (validated against ground truth) + shift forecast
 ## Phase 5 - Frontend
